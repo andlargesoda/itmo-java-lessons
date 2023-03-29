@@ -118,5 +118,6 @@ public class Lesson04 {
             sb.append(i).append(" "); // к пустой строчку добавляем значение переменной i, а затем "_"
         }
         concatString = sb.toString();
+
     }
 }
