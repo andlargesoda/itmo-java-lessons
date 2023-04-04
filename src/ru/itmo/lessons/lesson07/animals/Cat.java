@@ -10,15 +10,15 @@ public class Cat {
     private int index; // у каждого экземпляра класса Cat по умолчанию есть индекс со значением 0 (для массива)
     private int winner;
     public Cat(int speed, int weight) {
-        if (speed < 10) {
+        if (speed < AnimalsSettings.CAT_MIN_SPEED) {
             throw new IllegalArgumentException("Exceprtion: speed < 10");
         }
-        if (weight < 50) {
+        if (weight < AnimalsSettings.CAT_MIN_WEIGHT) {
             throw new IllegalArgumentException("Exceprtion: weight < 20");
         }
         this.speed = speed; // если проверка скорости прошла успешно, то присваеивается значение скорости
         this.weight = weight; // если проверка скорости прошла успешно, то присваеивается значение веса
-        mice = new Mouse[100]; // размер массива можно передавть через конструктор или прописывать жестко
+        mice = new Mouse[AnimalsSettings.MICE_COUNT]; // размер массива можно передавть через конструктор или прописывать жестко
         // коту присваеивается массив на 100 элементов, которые поплняется пойманными мышами
     }
 
@@ -40,31 +40,14 @@ public class Cat {
             System.out.println(name + " не смогу поймать мышь");
             return; // испльзуется для прерывания работы метода, если условие выполняется
         }
-        // mice
-        // цикл не используется
-        if (index < 100) {
-            mice[index] = mouse;
-            index++;
-        } else {
-            System.out.println("В массиве нет мест");
-        }
-
-        /* или
         if (mice.length == index) {
             System.out.println("В массиве нет мест");
             return;
         }
         mice[index] = mouse;
         index++;
-        */
 
         // null, null, null
-        for (int i = 0; i < mice.length; i++) {
-            if (mice[i] == null) {
-                mice[i] = mouse;
-                return;
-            }
-        }
     }
     public void atack(Cat enemy) {
         if (enemy == this) { // кот напал сам на себя
@@ -76,5 +59,13 @@ public class Cat {
         }
         if (weight > enemy.weight) winner++;
         else enemy.winner++;
+    }
+    public String getName() {
+        return name;
+    }
+    // фабричный (статический) метод
+    public static Cat getCat() {
+        // Cat cat можно не писать, т.к. более не встречается в методе, а сразу return
+        return new Cat((int) (Math.random()*30), (int) (Math.random()*50));
     }
 }
