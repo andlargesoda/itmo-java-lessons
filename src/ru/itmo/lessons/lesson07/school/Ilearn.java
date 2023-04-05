@@ -10,7 +10,7 @@ public interface Ilearn {
     // тип возвращаемого значение может быть любой
     // таких методов может быть сколько угодно
     // ничем не отличается от классического
-    default public void defaultLearning() {
+    public default void defaultLearning() {
         System.out.println("Обучение...");
     }
 

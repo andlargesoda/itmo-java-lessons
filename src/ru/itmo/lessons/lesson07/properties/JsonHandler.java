@@ -6,12 +6,13 @@ class JsonHandler extends Handler {
         super(fileName);
     }
 
-    // логика ч
+    // логика чтения из файла с расширением .json
     @Override
     public void read() {
 
     }
 
+    // логика записи в файл с расширением .json
     @Override
     public void write() {
 

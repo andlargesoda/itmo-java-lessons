@@ -15,12 +15,14 @@ public class AppUtilits {
     public static int getMin(int a, int b) {
         return a > b ? b : a;
     }
+
     // метод, принимающий на вход 2 строки, возращающий наименьшую по длине
-    public static String getMinString (String a, String b) {
+    public static String getMinString(String a, String b) {
         return a.length() > b.length() ? a : b;
     }
-    // метод, возвращающий случайно от мин до макс
+
+    // метод, принимающий на вход 2 числа (min, max) и возвращающий случайное от мин до макс
     public static int getRangeMinMax(int a, int b) {
-        return  (int) ((Math.random()*(b-a)+a));
+        return (int) ((Math.random() * (b - a) + a));
     }
 }
