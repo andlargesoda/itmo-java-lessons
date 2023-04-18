@@ -20,7 +20,14 @@ public class CalculatorException extends Exception {
         return super.getMessage() + " Будьте внимательны";
     }
 
-    static void throwException(Status status) throws JarException, FileNotFoundException, AccessDeniedException {
+    // throws ТипДанных - позволяет обработать исключение времени КОМПИЛЯЦИИ
+    // кто вызывает данный метод (в нашем случае throwException) тот и обрабатывает данные исключения (после throws)
+    // throws ТипДанных - в методе выбрасывается только исключение времени КОМПИЛЯЦИИ и оно не обработано
+    // и там, где будет вызываться метод указанные исключения должны быть обработаны
+    // в main не нужно прописывать throws
+
+    // throwException помещаем в блок try
+    public static void throwException(Status status) throws JarException, FileNotFoundException, AccessDeniedException {
         if (status.equals(Status.FILE_NOT_FOUND)) {
             throw new FileNotFoundException("Файл не найден");
         } else if (status.equals(Status.ACCESS_DENIED)) {

@@ -2,6 +2,7 @@ package ru.itmo.lessons.lesson12;
 
 import ru.itmo.lessons.lesson06.books.Book;
 
+import java.io.FileNotFoundException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -95,11 +96,6 @@ public class Lesson12 {
             throw new RuntimeException(e.getMessage(), e);
         }
 
-        try {
-            // потенциально опасный код
-        } catch (AccessDeniedException exception) {
-            System.out.println("Обработка AccessDeniedException " + exception.th);
-        }
 
         // Обработка нескольких типов исключений
         // 1. исользовать несколько блоков Catch (разные типы нужно обрабатывать разными способами)
@@ -128,7 +124,7 @@ public class Lesson12 {
             // потенциально опасный код, в случае исключительной ситуации необходимо перехватить
             // исключения времени выполнения
         } catch (RuntimeException exception) {
-            System.out.println("Обработка Runtime);
+            System.out.println("Обработка Runtime");
         }
 
         // 4. если требуется кого-исключить, то его нужно указать первым, иначе родитель сразу все перехватит
@@ -137,7 +133,7 @@ public class Lesson12 {
             // исключения времени выполнения
         } catch (ClassCastException exception) {
             System.out.println("Обработка ClassCastException " + exception.getMessage());
-        }catch (RuntimeException exception) {
+        } catch (RuntimeException exception) {
             System.out.println("Обработка остальных RuntimeException " + exception.getMessage());
         }
 
@@ -152,6 +148,52 @@ public class Lesson12 {
             // возможность обработки исключения блоком catch не имеет значения
             // используется для инструкций, связанных с закрытием ресурсов
             // может быть заменен на try with resources try() {}, finally при этом не указывается
+        }
+        Status status01 = Status.FILE_NOT_FOUND;
+        Status status02 = Status.ACCESS_DENIED;
+        Status status03 = Status.JAR_ERROR;
+
+        // вызываем метод throwException
+        try { // блок кода, в котором может произойти исключение
+            throwException(status01);
+        } catch (AccessDeniedException exception) { // обработка исключения AccessDeniedException
+            throw new RuntimeException(exception.getMessage(), exception);
+        } catch (JarException exception) { // обработка исключения JarException
+            exception.printStackTrace();
+        } catch (FileNotFoundException exception) { // обработка исключения FileNotFoundException
+            exception.printStackTrace();
+        }
+
+        try {
+            throwException(status02);
+        } catch (AccessDeniedException exception) {
+            throw new RuntimeException(exception.getMessage(), exception);
+        } catch (JarException exception) {
+            exception.printStackTrace();
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        }
+
+        try {
+            throwException(status03);
+        } catch (AccessDeniedException exception) {
+            throw new RuntimeException(exception.getMessage(), exception);
+        } catch (JarException exception) {
+            exception.printStackTrace();
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    static void throwException(Status status) throws JarException, FileNotFoundException, AccessDeniedException {
+        if (status.equals(Status.FILE_NOT_FOUND)) {
+            throw new FileNotFoundException("Файл не найден");
+        }
+        if (status.equals(Status.ACCESS_DENIED)) {
+            throw new AccessDeniedException("Доступ запрещен");
+        }
+        if (status.equals(Status.JAR_ERROR)) {
+            throw new JarException("Ошибка при чтении/записи в JAR файл");
         }
     }
 }
