@@ -40,7 +40,7 @@ public class CollectionTask01 {
         System.out.println(storage.getNumberOfFruits()); // 47
 
         System.out.println(fruit01.getPrice());
-        storage.increasePrice(10);
+        storage.increasePrice(20);
         System.out.println(fruit01.getPrice());
         System.out.println(fruit02.getPrice());
         System.out.println(fruit03.getPrice());
@@ -51,7 +51,7 @@ public class CollectionTask01 {
 
         System.out.println(storage.getFruitsPrice());
 
-        System.out.println(storage.getFruitsByTypeAndPrice(Fruit.FruitType.BANANA, 150));
+        System.out.println(storage.getFruitsByTypeAndPrice(Fruit.FruitType.PEAR, 200));
         // [type=BANANA, price=88, count=12; type=BANANA, price=143, count=8]
     }
 }

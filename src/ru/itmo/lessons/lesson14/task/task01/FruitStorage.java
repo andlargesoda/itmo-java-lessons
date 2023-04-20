@@ -5,6 +5,7 @@ import java.util.List;
 
 public class FruitStorage {
     private ArrayList<Fruit> fruits; // коллекция для хранения фруктов (коллекцию выбрать самостоятельно)
+    private int numberOfFruits;
 
 
     public FruitStorage() {
@@ -48,25 +49,23 @@ public class FruitStorage {
         int count = 0;
         for (Fruit fruit : fruits) {
             count += fruit.getCount();
-        }
-        return count;
+
     }
+        return count;
+}
 
     public void increasePrice(int value) {
-        if (value >= 10 & value <= 30) { // value может быть в диапазоне [10; 30)
+        if (value >= 10 || value <= 30) {
             for (Fruit fruit : fruits) {
-                fruit.setPrice(fruit.getPrice() * (1 + (double) value / 100)); // увеличить цену фруктов на value процентов
+                fruit.setPrice(fruit.getPrice() * (1 + (double) value / 100));
             }
-        } else {
-            System.out.println("Процент повышения цены должен быть в диапазоне [10; 30)");
         }
     }
-
     public double getFruitsPrice() {
         // возвращает общую стоимость фруктов на складе
-        double sumPrice = 0;
+        int sumPrice = 0;
         for (Fruit fruit : fruits) {
-            sumPrice += fruit.getPrice() * fruit.getCount();
+            sumPrice += fruit.getPrice();
         }
         return sumPrice;
     }
@@ -74,15 +73,11 @@ public class FruitStorage {
     public List<Fruit> getFruitsByTypeAndPrice(Fruit.FruitType fruitType, int maxPrice) {
         // maxPrice должна быть положительной
         // возвращает список, в который войдут фрукты из коллекции fruits с типом fruitType и ценой не выше maxPrice
-        if (maxPrice > 0) {
-            for (Fruit fruit : fruits) {
-                if (fruit.getType() == fruitType) {
-                    System.out.println(fruit.getType());
-                    System.out.println(fruit.getCount());
-                    System.out.println(fruit.getPrice());
-                }
-            }
+        if (maxPrice <= 0) return null;
+        ArrayList<Fruit> fruitsMaxPrice = new ArrayList<>();
+        for (Fruit fruit : fruits) {
+            if (fruit.getType() == fruitType) fruitsMaxPrice.add(fruit);
         }
-        return null;
+        return fruitsMaxPrice;
     }
 }
